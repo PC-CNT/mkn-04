@@ -22,10 +22,11 @@ def SAVE(data: bytearray, filename: str):
 
 
 def main():
-    if getattr(sys, "frozen", False):
-        current_dir = os.path.dirname(sys.executable)
-    else:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
+    # if getattr(sys, "frozen", False):
+    #     current_dir = os.path.dirname(sys.executable)
+    # else:
+    #     current_dir = os.path.dirname(os.path.abspath(__file__))
+    current_dir = os.path.expanduser("~/Desktop/")
     os.chdir(current_dir)
 
     root = tkinter.Tk()
@@ -42,6 +43,8 @@ def main():
             bf = bytearray(f.read())
             if bf[:4] == b"TNES":
                 SAVE(TNES(bf), f"{filename}.nes")
+            else:
+                print(f"対応していない形式です:{os.path.basename(file)}")
     return
 
 
