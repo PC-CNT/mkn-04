@@ -6,10 +6,15 @@ from tkinter import filedialog
 
 
 def TNES(bf: bytearray):
+    # print(bf[:16])
     """TNES形式
     詳しくは→https://wiki.nesdev.com/w/index.php/TNES
     """
     bf[:4] = b"\x4E\x45\x53\x1A"
+    bf[4:5] = (bytearray([bf[5] // 2]))
+    bf[6] = bf[7]
+    bf[7:17] = b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+    # print(bf[:16])
     return bf
 
 
@@ -19,6 +24,7 @@ def SAVE(data: bytearray, filename: str):
     with open(filename, "xb") as f:
         f.write(data)
         print(f"file saved successfully: {filename}")
+    return
 
 
 def main():
